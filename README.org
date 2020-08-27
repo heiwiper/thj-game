@@ -1,0 +1,30 @@
+
+* Introduction
+ Le projet est un jeu de guerre basé sur le célèbre Blotto Game, il y aura deux joueurs ayant des territoires à défendre et visant également à conquérir les territoires de l'adversaire.  
+ 
+* Description
+  
+* Tasks
+
+** TODO [0/5] Premiere Etape (Calcul des strategies en purs)
+   1) [ ] Strategies strictement dominantes 
+   2) [ ] Strategies faiblement dominantes
+   3) [ ] Equilibre de Nash
+   4) [ ] Pareto Dominance
+   5) [ ] Niveau de sécurité
+
+** TODO [0/5] Deuxieme Etape (Calcul des strategies en mixte)
+   1) [ ] Strategies strictement dominantes 
+   2) [ ] Strategies faiblement dominantes
+   3) [ ] Equilibre de Nash
+   4) [ ] Pareto Dominance
+   5) [ ] Niveau de sécurité
+
+** [0/0] Troisieme Etape (Interface du jeu)
+   (pas encore planifié)
+      
+** [0/0] Troisieme Etape (Amelioration)
+   (pas encore planifié)
+   
+* TODO [0/1] Secondary Tasks
+  1) [ ] Carte a deviner
