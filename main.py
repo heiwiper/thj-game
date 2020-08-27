@@ -30,19 +30,23 @@ for i in range(len(strategies)):
         s23 = strategies[j][2]
         if(s11>s21):
             gain1+=1
+            gain2-=1
         elif(s11<s21):
             gain2+=1
+            gain1-=1
 
         if(s12>s22):
             gain1+=1
+            gain2-=1
         elif(s12<s22):
             gain2+=1
-
+            gain1-=1
         if(s13>s23):
             gain1+=1
+            gain2-=1
         elif(s13<s23):
             gain2+=1
-
+            gain1-=1
         list2.append((gain1, gain2))
     matrix.append(list2)
 
