@@ -79,3 +79,54 @@ for j in range(len(strategies)):
 
 print("L'equilibre de nash :")
 print( set(br1) & set(br2) )
+
+
+# recherche des profils sécurisés
+ps = [] # profils sécurisés
+s1 = [] # stratégies sécurisées du joueur 1
+s2 = [] # stratégies sécurisées du joueur 2
+
+# recherche des stratégies sécurisées du joueur 1
+minimum = [] # le minimum que le joueur risque d'avoir dans chaque cas (x, min)
+for i in range(len(strategies)):
+    min = 0
+    for j in range(len(strategies)):
+        if (min>matrix[i][j][0]):
+            min = matrix[i][j][0]
+    minimum.append((strategies[i], min))
+# recherche du maximum qu'il peut avoir
+max = 0
+for i in range(len(minimum)):
+    if(max < minimum[i][1]):
+        max = minimum[i][1]
+for i in range(len(minimum)):
+    if( max == minimum[i][1]):
+        s1.append(minimum[i][0])
+print("Les stratégies sécurisées du joueur 1 : ")
+print(s1)
+
+# recherche des stratégies sécurisées du joueur 2
+minimum = []
+for j in range(len(strategies)):
+    min = 0
+    for i in range(len(strategies)):
+        if (min>matrix[i][j][1]):
+            min = matrix[i][j][1]
+    minimum.append((strategies[j], min))
+# recherche du maximum qu'il peut avoir
+max = 0
+for i in range(len(minimum)):
+    if(max < minimum[i][1]):
+        max = minimum[i][1]
+for i in range(len(minimum)):
+    if( max == minimum[i][1]):
+        s2.append(minimum[i][0])
+print("Les stratégies sécurisées du joueur 2 : ")
+print(s2)
+
+for i in range(len(s1)):
+    for j in range(len(s2)):
+        ps.append((s1[i], s2[j]))
+
+print("Les profils sécurisés :")
+print(ps)
