@@ -18,7 +18,7 @@ for i in range(len(strategies)):
 # construction de la matrice de jeu
 matrix = []
 for i in range(len(strategies)):
-    list = []
+    list2 = []
     for j in range(len(strategies)):
         gain1 = 0 # nombre de gain du premier joueur
         gain2 = 0 # nombre de gain du second joueur
@@ -43,8 +43,8 @@ for i in range(len(strategies)):
         elif(s13<s23):
             gain2+=1
 
-        list.append((gain1, gain2))
-    matrix.append(list)
+        list2.append((gain1, gain2))
+    matrix.append(list2)
 
 # Affichage de la matrice du jeu
 print("Affichage de la matrice de jeu  :")
@@ -65,7 +65,7 @@ for i in range(len(strategies)):
             max = matrix[i][j][1]
     for j in range(len(strategies)):
         if(matrix[i][j][1] == max):
-            br1.append((i,j))
+            br1.append((strategies[i],strategies[j]))
 
 # recherches des meilleurs réponses pour le joueur 1
 for j in range(len(strategies)):
@@ -75,7 +75,7 @@ for j in range(len(strategies)):
             max = matrix[i][j][0]
     for i in range(len(strategies)):
         if(matrix[i][j][0] == max):
-            br2.append((i,j))
+            br2.append((strategies[i], strategies[j]))
 
 print("L'equilibre de nash :")
-print(set(br1) & set(br2))
+print( set(br1) & set(br2) )
