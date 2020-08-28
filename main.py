@@ -168,3 +168,16 @@ def search_optimum_pareto(optimums_pareto):
 search_optimum_pareto(optimums_pareto)
 print("optimum de pareto :")
 print(optimums_pareto)
+
+matrix =[[(1,1),(2,3)],
+[(5,6),(8,9)]]
+
+print("pareto dominance :")
+for i in range(len(matrix)):
+    for j in range(len(matrix)):
+        for x in range(len(matrix)):
+            for y in range(len(matrix)):
+                if matrix[i][j][0] > matrix[x][y][0] and matrix[i][j][1] > matrix[x][y][1]:
+                    print("(",i,",",j,") >","(",x,",",y,")")
+                elif matrix[i][j][0] < matrix[x][y][0] and matrix[i][j][1] < matrix[x][y][1]:
+                    print("(",i,",",j,") <","(",x,",",y,")")
