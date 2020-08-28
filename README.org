@@ -6,7 +6,7 @@
   
 * Tasks
 
-** TODO [0/5] Premiere Etape (Calcul des strategies en purs)
+** TODO [5/5] Premiere Etape (Calcul des strategies en purs)
    1) [X] Strategies strictement dominantes 
    2) [X] Strategies faiblement dominantes
    3) [X] Equilibre de Nash
