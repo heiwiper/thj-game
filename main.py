@@ -134,3 +134,37 @@ for i in range(len(s1)):
 
 print("Les profils sécurisés :")
 print(ps)
+
+# recherche de l'optimum de pareto
+optimums_pareto = []
+def first_optimum_pareto(optimums_pareto):
+    for i in range(len(matrix)):
+        for j in range(len(matrix)):
+            value = matrix[i][j]
+            is_optimum_pareto = True
+            ii = 0
+            jj = 0
+            while ii <len(matrix) and is_optimum_pareto == True:
+                while jj < len(matrix) and is_optimum_pareto == True:
+                    if (value[0] >= matrix[ii][jj][0] and value[1]>=matrix[ii][jj][1])== False:
+                        is_optimum_pareto = False
+                    jj+=1
+                ii+=1
+            if(is_optimum_pareto):
+                optimums_pareto.append((i,j))
+                return
+
+def search_optimum_pareto(optimums_pareto):
+    first_optimum_pareto(optimums_pareto)
+    if optimums_pareto!=[]:
+        for i in range(len(matrix)):
+            for j in range(len(matrix)):
+                x = optimums_pareto[0][0]
+                y = optimums_pareto[0][1]
+                if( (i==x and j==y)==False  ):
+                    if matrix[i][j][0] == matrix[x][y][0] and matrix[i][j][1] == matrix[x][y][1]:
+                        optimums_pareto.append((i,j))
+
+search_optimum_pareto(optimums_pareto)
+print("optimum de pareto :")
+print(optimums_pareto)
