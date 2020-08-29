@@ -6,19 +6,16 @@
   
 * Tasks
 
-** TODO [0/5] Premiere Etape (Calcul des strategies en purs)
+** TODO [5/5] Premiere Etape (Calcul des strategies en purs)
    1) [X] Strategies strictement dominantes 
    2) [X] Strategies faiblement dominantes
    3) [X] Equilibre de Nash
    4) [X] Pareto Dominance
    5) [X] Niveau de sécurité
 
-** TODO [0/5] Deuxieme Etape (Calcul des strategies en mixte)
-   1) [ ] Strategies strictement dominantes 
-   2) [ ] Strategies faiblement dominantes
-   3) [ ] Equilibre de Nash
-   4) [ ] Pareto Dominance
-   5) [ ] Niveau de sécurité
+** TODO [1/2] Deuxieme Etape (Calcul des strategies en mixte)
+   1) [X] Equilibre de Nash
+   2) [ ] Niveau de sécurité
 
 ** [0/0] Troisieme Etape (Interface du jeu)
    (pas encore planifié)
