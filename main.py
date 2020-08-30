@@ -169,9 +169,6 @@ search_optimum_pareto(optimums_pareto)
 print("optimum de pareto :")
 print(optimums_pareto)
 
-matrix =[[(1,1),(2,3)],
-[(5,6),(8,9)]]
-
 print("pareto dominance :")
 for i in range(len(matrix)):
     for j in range(len(matrix)):
