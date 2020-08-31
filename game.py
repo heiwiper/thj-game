@@ -39,13 +39,13 @@ def display_numbers(number_troops, player1Troops, player2Troops):
     remaining_troopsP2 = font.render(str(number_troops-(player2Troops[0]+player2Troops[1]+player2Troops[2])), False, (158,15,15))
     player1TroopsText = []
     player2TroopsText = []
-    for n in range(number_troops):
-        player1TroopsText.append(font.render(str(player1Troops[n]), False, (158,15,15)))
-        player2TroopsText.append(font.render(str(player2Troops[n]), False, (47,60,126)))
+    for i in range(mapRows):
+        player1TroopsText.append(font.render(str(player1Troops[i]), False, (158,15,15)))
+        player2TroopsText.append(font.render(str(player2Troops[i]), False, (47,60,126)))
 
     screen.blit(remaining_troopsP1, (35, 780))
     screen.blit(remaining_troopsP2, (685, 780))
-    for i in range(number_troops):
+    for i in range(mapRows):
         screen.blit(player1TroopsText[i], (60, 140+230*i))
         screen.blit(player2TroopsText[i], (width-80, 140+230*i))
 
