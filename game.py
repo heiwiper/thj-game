@@ -32,22 +32,43 @@ def draw_map(mapColors, map):
 
 
 def display_numbers(number_troops, player1Troops, player2Troops):
+    font = pygame.font.SysFont('Arial', 28)
+    font.set_bold(False)
+
+    remaining_troopsP1 = font.render(str(number_troops-(player1Troops[0]+player1Troops[1]+player1Troops[2])), False, (255,255,255))
+    remaining_troopsP2 = font.render(str(number_troops-(player2Troops[0]+player2Troops[1]+player2Troops[2])), False, (255,255,255))
+
     font = pygame.font.SysFont('Arial', 40)
     font.set_bold(True)
-
-    remaining_troopsP1 = font.render(str(number_troops-(player1Troops[0]+player1Troops[1]+player1Troops[2])), False, (47,60,126))
-    remaining_troopsP2 = font.render(str(number_troops-(player2Troops[0]+player2Troops[1]+player2Troops[2])), False, (158,15,15))
     player1TroopsText = []
     player2TroopsText = []
     for i in range(mapRows):
         player1TroopsText.append(font.render(str(player1Troops[i]), False, (158,15,15)))
         player2TroopsText.append(font.render(str(player2Troops[i]), False, (47,60,126)))
 
-    screen.blit(remaining_troopsP1, (35, 780))
-    screen.blit(remaining_troopsP2, (685, 780))
+    image_rect = blueHelmet.get_rect()
+    image_rect.center = (132/2+width-132, (height-880)/2+890)
+    screen.blit(blueHelmet, image_rect)
+
+    image_rect = redHelmet.get_rect()
+    image_rect.center = (132/2, (height-880)/2+890)
+    screen.blit(redHelmet, image_rect)
+
+    text_rect = player1TroopsText[i].get_rect(center=(146/2, 910))
+    screen.blit(remaining_troopsP1, text_rect)
+    text_rect = player2TroopsText[i].get_rect(center=(132/2+width-132, 910))
+    screen.blit(remaining_troopsP2, text_rect)
+    image_rect = shieldImage.get_rect()
     for i in range(mapRows):
-        screen.blit(player1TroopsText[i], (60, 140+230*i))
-        screen.blit(player2TroopsText[i], (width-80, 140+230*i))
+        image_rect.center = (132/2, 230/2+230*i+30)
+        screen.blit(shieldImage, image_rect)
+        text_rect = player1TroopsText[i].get_rect(center=(132/2, 230/2+230*i+30))
+        screen.blit(player1TroopsText[i], text_rect)
+
+        image_rect.center = (132/2+width-132, 230/2+230*i+30)
+        screen.blit(shieldImage, image_rect)
+        text_rect = player2TroopsText[i].get_rect(center=(132/2+width-132, 230/2+230*i+30))
+        screen.blit(player2TroopsText[i], text_rect)
 
 # display the first window
 first_window = First_window()
@@ -68,6 +89,49 @@ def claim_territory(player, row):
                     mapColors[row][c-1] = 0
                 return
 
+frameCount = 0
+player1Sprites = []
+player2Sprites = []
+statesList = ["standing", "won", "lost"]
+for sprites in statesList:
+    tempList1 = []
+    tempList2 = []
+    for c in range(2):
+        tempList1.append(pygame.image.load('./assets/characters/red/{}_{}.png'.format(sprites, c)))
+        tempList2.append(pygame.image.load('./assets/characters/blue/{}_{}.png'.format(sprites, c)))
+    player1Sprites.append(tempList1)
+    player2Sprites.append(tempList2)
+
+def draw_players(state1, state2, frameCount):
+    if frameCount >= 2:
+        frameCount = 0
+    maxFrames = 0
+    if state1 == "standing" or state1 == "won":
+        maxFrames = 2
+    elif state1 == "lost":
+        maxFrames = 1
+
+    statePlayer1 = statesList.index(state1)
+    statePlayer2 = statesList.index(state2)
+    screen.blit(player1Sprites[statePlayer1][frameCount], (10, 880-player1Sprites[statePlayer1][frameCount].get_rect().height))
+    screen.blit(player2Sprites[statePlayer2][frameCount], (width-player2Sprites[statePlayer2][frameCount].get_rect().width-10, 880-player2Sprites[statePlayer2][frameCount].get_rect().height))
+    return frameCount+1
+
+
+def redraw_game_window(frameCount):
+    screen.blit(background, (0, 0))
+    draw_map(mapColors, map)
+    py_map =  pygame.image.fromstring(map.tobytes(), (1015, 690), 'RGBA')
+    screen.blit(mapImage, (132, 30))
+    screen.blit(py_map, (132, 30))
+    display_numbers(number_troops, player1Troops, player2Troops)
+    frameCount = draw_players(player1State, player2State, frameCount)
+    if winner is not None:
+        if gain1 == gain2:
+            screen.blit(winner, (420, 250))
+        else :
+            screen.blit(winner, (500, 180))
+    return frameCount
 
 # init
 pygame.init()
@@ -80,6 +144,10 @@ screen = pygame.display.set_mode(size)
 # set the background of the first window
 background = pygame.image.load('assets/background.png')
 mapImage = pygame.image.load('assets/map/full_map.png')
+
+blueHelmet = pygame.image.load('assets/characters/blue/blue_helmet.png')
+redHelmet = pygame.image.load('assets/characters/red/red_helmet.png')
+shieldImage = pygame.image.load('assets/shield.png')
 
 # set title of the window
 pygame.display.set_caption("THJ Game")
@@ -102,6 +170,8 @@ for r in range(mapRows):
 
 map = Image.new('RGBA', (1015, 690))
 
+player1State = "standing"
+player2State = "standing"
 player1Troops = []
 player2Troops = []
 for i in range(mapRows):
@@ -115,17 +185,7 @@ winner = None
 # main loop
 run = True
 while run:
-    screen.blit(background, (0, 0))
-    draw_map(mapColors, map)
-    py_map =  pygame.image.fromstring(map.tobytes(), (1015, 690), 'RGBA')
-    screen.blit(mapImage, (132, 30))
-    screen.blit(py_map, (132, 30))
-    display_numbers(number_troops, player1Troops, player2Troops)
-    if winner!=None :
-        if gain1 == gain2:
-            screen.blit(winner, (420, 250))
-        else :
-            screen.blit(winner, (500, 180))
+    frameCount = redraw_game_window(frameCount)
     pygame.display.update()
 
     for event in pygame.event.get():
@@ -213,10 +273,16 @@ while run:
                     gain2+=1
                     claim_territory(2, 2)
                 if gain1 > gain2:
-                    winner = pygame.image.load("assets/blueWin.png")
+                    winner = pygame.image.load("assets/redWin.png")
+                    player1State = "won"
+                    player2State = "lost"
                 elif gain1 < gain2:
-                    winner =  pygame.image.load("assets/redWin.png")
+                    winner = pygame.image.load("assets/blueWin.png")
+                    player1State = "lost"
+                    player2State = "won"
                 else:
                     font = pygame.font.SysFont('Arial', 100)
                     font.set_bold(True)
                     winner = font.render('Match nul !', False, (204,255,153))
+                    player1State = "lost"
+                    player2State = "lost"
