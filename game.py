@@ -118,19 +118,39 @@ def draw_players(state1, state2, frameCount):
     return frameCount+1
 
 
+def init_map(mapColors):
+    for r in range(mapRows):
+        for c in range(mapColumns):
+            if c < mapColumns//2:
+                mapColors[r][c] = 1
+            elif c == mapColumns//2:
+                mapColors[r][c] = 0
+            else:
+                mapColors[r][c] = -1
+
+
 def redraw_game_window(frameCount):
     screen.blit(background, (0, 0))
+    image_rect = button.get_rect()
+    image_rect.center = (width/2, 800)
+    screen.blit(button, image_rect)
     draw_map(mapColors, map)
     py_map =  pygame.image.fromstring(map.tobytes(), (1015, 690), 'RGBA')
     screen.blit(mapImage, (132, 30))
     screen.blit(py_map, (132, 30))
     display_numbers(number_troops, player1Troops, player2Troops)
     frameCount = draw_players(player1State, player2State, frameCount)
-    if winner is not None:
+    if winner is not None and turn == 3:
         if gain1 == gain2:
             screen.blit(winner, (420, 250))
         else :
             screen.blit(winner, (500, 180))
+        font = pygame.font.SysFont('Arial', 32)
+        font.set_bold(False)
+
+        restart_text = font.render('Click anywhere to play again', False, (255,255,255))
+        text_rect = restart_text.get_rect(center=(width/2, 700))
+        screen.blit(restart_text, text_rect)
     return frameCount
 
 # init
@@ -149,12 +169,14 @@ blueHelmet = pygame.image.load('assets/characters/blue/blue_helmet.png')
 redHelmet = pygame.image.load('assets/characters/red/red_helmet.png')
 shieldImage = pygame.image.load('assets/shield.png')
 
+button = pygame.image.load('assets/button.png')
+
 # set title of the window
 pygame.display.set_caption("THJ Game")
 
 #load then play music
-# music = pygame.mixer.music.load("./assets/sounds/bgm.wav")
-# pygame.mixer.music.play(-1)
+music = pygame.mixer.music.load("./assets/sounds/bgm.wav")
+pygame.mixer.music.play(-1)
 
 mapColors = []
 for r in range(mapRows):
@@ -182,16 +204,25 @@ gain1 = 0
 gain2 = 0
 winner = None
 
+turn = 0
+gamePaused = False
 # main loop
 run = True
 while run:
-    frameCount = redraw_game_window(frameCount)
-    pygame.display.update()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            if gamePaused:
+                if turn == 3:
+                    init_map(mapColors)
+                    winner = None
+                    turn = 0
+                player1State = 'standing'
+                player2State = 'standing'
+                gamePaused = False
+                break
             pos = pygame.mouse.get_pos()
             if 0<pos[0]<132 and 30<pos[1]<260:
                 if event.button == 1 : # LEFT CLICK
@@ -247,7 +278,10 @@ while run:
                     if(player2Troops[2]>0):
                         player2Troops[2]-=1
                         numberTroopsP2+=1
-            elif 540<pos[0]<737 and 593<pos[1]<656: # ISSUE DU JEU
+            elif width/2-150<pos[0]<width/2+150 and 725<pos[1]<875: # ISSUE DU JEU
+                gamePaused = True
+                turn += 1
+                gain1 = gain2 = 0
                 if player1Troops[0] > player2Troops[0]:
                     gain1+=1
                     gain2-=1
@@ -272,17 +306,36 @@ while run:
                     gain1-=1
                     gain2+=1
                     claim_territory(2, 2)
-                if gain1 > gain2:
-                    winner = pygame.image.load("assets/redWin.png")
-                    player1State = "won"
-                    player2State = "lost"
-                elif gain1 < gain2:
-                    winner = pygame.image.load("assets/blueWin.png")
-                    player1State = "lost"
-                    player2State = "won"
+                if turn == 3:
+                    player1Score = 0
+                    player2Score = 0
+                    for r in mapColors:
+                        player1Score += r.count(1)
+                        player2Score += r.count(-1)
+                    if player1Score > player2Score:
+                        winner = pygame.image.load("assets/redWin.png")
+                        player1State = "won"
+                        player2State = "lost"
+                    elif player1Score < player2Score:
+                        winner = pygame.image.load("assets/blueWin.png")
+                        player1State = "lost"
+                        player2State = "won"
+                    else:
+                        font = pygame.font.SysFont('Arial', 100)
+                        font.set_bold(True)
+                        winner = font.render('Match nul !', False, (204,255,153))
+                        player1State = "lost"
+                        player2State = "lost"
                 else:
-                    font = pygame.font.SysFont('Arial', 100)
-                    font.set_bold(True)
-                    winner = font.render('Match nul !', False, (204,255,153))
-                    player1State = "lost"
-                    player2State = "lost"
+                    if gain1 > gain2:
+                        player1State = "won"
+                        player2State = "lost"
+                    elif gain1 < gain2:
+                        player1State = "lost"
+                        player2State = "won"
+                    else:
+                        player1State = "lost"
+                        player2State = "lost"
+
+    frameCount = redraw_game_window(frameCount)
+    pygame.display.update()
