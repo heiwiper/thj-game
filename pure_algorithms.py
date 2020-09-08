@@ -236,7 +236,7 @@ def optimum_pareto(matrix):
         for j in range(len(matrix)):
             for x in range(len(matrix)):
                 for y in range(len(matrix)):
-                    if matrix[i][j][0] > matrix[x][y][0] and matrix[i][j][1] > matrix[x][y][1]:
+                    if (matrix[i][j][0] >= matrix[x][y][0] and matrix[i][j][1] >= matrix[x][y][1]) and (matrix[i][j][0] > matrix[x][y][0] or matrix[i][j][1] > matrix[x][y][1]):
                         print("(",i,",",j,") >","(",x,",",y,")")
-                    elif matrix[i][j][0] < matrix[x][y][0] and matrix[i][j][1] < matrix[x][y][1]:
+                    elif (matrix[i][j][0] <= matrix[x][y][0] and matrix[i][j][1] <= matrix[x][y][1]) and (matrix[i][j][0] < matrix[x][y][0] or matrix[i][j][1] < matrix[x][y][1]):
                         print("(",i,",",j,") <","(",x,",",y,")")
