@@ -19,7 +19,8 @@ while(True):
     print("3. Calculer l'equilibre de Nash pure.\n")
     print("4. Calculer les profiles securisees.\n")
     print("5. Calculer l'optimum de pareto.\n")
-    print("6. Calculer l'equilibre de Nash mixte.\n")
+    print("6. Calculer l'equilibre de Nash mixte. (Methode classique) !! NE FONCTIONNE PAS !!\n")
+    print("7. Calculer l'equilibre de Nash mixte. (Algorithm SIMPLEX)\n")
     choice = int(input())
     if choice == 1 :
         purealg.weakly_dominated_strategies(matrix, strategies)
@@ -35,4 +36,4 @@ while(True):
         mixedalg.mixed_nash_P1(matrix)
         mixedalg.mixed_nash_P2(matrix)
     elif choice == 7 :
-        mixedalg.simplex()
+        mixedalg.mixed_nash_simplex(matrix, strategies)

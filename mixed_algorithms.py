@@ -54,22 +54,30 @@ def mixed_nash_P2(matrix):
     sigmaArray[-1] = 1 # sum of possibilities = 1
     print(numpy.linalg.solve(equations, sigmaArray))
 
-def simplex():
-    matrix = [[(0,0),(-1,1),(1,-1)],
-              [(1,-1),(0,0),(-1,1)],
-              [(-1,1),(1,-1),(0,0)]]
-    matrix1 = get_player_matrix(matrix, 1).T
-    matrix2 = get_player_matrix(matrix, 1)
-    A = numpy.array([[0,1,+1],
-                    [-1,0,1],
-                    [1,-1,0]])
-    b = numpy.array([-1,-1,-1])
-    c = numpy.array([1,1,1])
 
-    print(matrix1)
-    print()
-    print(matrix2)
+# Calculer l'equilibre de Nash mixte avec l'algorithm SIMPLEX
+def mixed_nash_simplex(matrix, strategies):
+    matrix1 = get_player_matrix(matrix, 1)
+    A = numpy.zeros((len(matrix)+2, len(matrix)+1), dtype='i')
+    for row in range(len(matrix1)):
+        for col in range(len(matrix1)):
+            A[row,col] = matrix1[row,col]
+    temp = numpy.ones(len(matrix)+1)
+    temp[-1] = 0
+    A[[len(matrix)],:] = temp
+    A[[len(matrix)+1],:] = temp*-1
+    temp = numpy.ones(len(matrix)+2)
+    temp[-1] = 0
+    temp[-2] = 0
+    temp = temp.T
+    A[:,len(matrix)] = temp
 
-    result = linprog(c, A_ub=A, b_ub=b, bounds=(0, 1))
+    b = numpy.zeros(len(matrix)+2)
+    b[-2] = 1
+    b[-1] = -1
+    c = numpy.zeros(len(matrix)+1)
+    c[0] = 1
 
+    result = linprog(c, A_ub=A, b_ub=b, bounds=(0, None))
+    print(strategies)
     print('Optimal value:', result.fun, '\nX:', result.x)
