@@ -39,12 +39,10 @@ def create_matrix(maxTroops):
                 gain2 += 1
             list2.append((gain1, gain2))
         matrix.append(list2)
-    for i in range(len(matrix)):
-        print(matrix[i])
     return matrix
 
 
-# generer toures les strategies possibles
+# generer toutes les strategies possibles
 def generate_strategies(maxTroops):
     strategies = []  # les strategies possibles
     for i in range(maxTroops+1):
@@ -54,10 +52,19 @@ def generate_strategies(maxTroops):
             thirdTroops = maxTroops - (i+j)
             strategies.append((firstTroops, secondTroops, thirdTroops))
 
-    # Affichage des strategies
-    print("Liste des strategies possibles :")
-    for i in range(len(strategies)):
-        print(strategies[i])
+    return strategies
+
+
+# generer toutes les strategies possibles avec le nombre de troupes par champ de bataille strictement superieur a zero
+def generate_no_zero_strategies(maxTroops):
+    strategies = []  # les strategies possibles
+    for i in range(1, maxTroops):
+        firstTroops = i
+        for j in range(1, maxTroops-i):
+            secondTroops = j
+            thirdTroops = maxTroops + 1 - (i+j+1)
+            strategies.append((firstTroops, secondTroops, thirdTroops))
+
     return strategies
 
 
@@ -82,6 +89,4 @@ def get_tuple_matrix(matrix1, matrix2):
         for c in range(len(matrix1[r])):
             tempList.append((matrix1[r, c], matrix2[r, c]))
         matrix.append(tempList)
-    for i in range(len(matrix)):
-        print(matrix[i])
     return matrix

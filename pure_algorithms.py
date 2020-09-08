@@ -61,6 +61,7 @@ def strictly_dominated_strategies(matrix, strategies):
     print(strategies1)
     print("Player 2 strategies:")
     print(strategies2)
+    print()
     m = get_tuple_matrix(matrix1, matrix2)
     for i in range(len(m)):
         print(m[i])
@@ -118,6 +119,7 @@ def weakly_dominated_strategies(matrix, strategies):
     print(strategies1)
     print("Player 2 strategies:")
     print(strategies2)
+    print()
     m = get_tuple_matrix(matrix1, matrix2)
     for i in range(len(m)):
         print(m[i])

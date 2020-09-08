@@ -1,6 +1,7 @@
 import numpy
+from scipy.optimize import linprog
 
-from tools import get_player_matrix
+from tools import get_player_matrix, get_tuple_matrix
 
 numpy.set_printoptions(linewidth=numpy.inf)
 
@@ -52,3 +53,23 @@ def mixed_nash_P2(matrix):
     sigmaArray = numpy.zeros((len(matrix)))
     sigmaArray[-1] = 1 # sum of possibilities = 1
     print(numpy.linalg.solve(equations, sigmaArray))
+
+def simplex():
+    matrix = [[(0,0),(-1,1),(1,-1)],
+              [(1,-1),(0,0),(-1,1)],
+              [(-1,1),(1,-1),(0,0)]]
+    matrix1 = get_player_matrix(matrix, 1).T
+    matrix2 = get_player_matrix(matrix, 1)
+    A = numpy.array([[0,1,+1],
+                    [-1,0,1],
+                    [1,-1,0]])
+    b = numpy.array([-1,-1,-1])
+    c = numpy.array([1,1,1])
+
+    print(matrix1)
+    print()
+    print(matrix2)
+
+    result = linprog(c, A_ub=A, b_ub=b, bounds=(0, 1))
+
+    print('Optimal value:', result.fun, '\nX:', result.x)
