@@ -240,3 +240,20 @@ def optimum_pareto(matrix):
                         print("(",i,",",j,") >","(",x,",",y,")")
                     elif (matrix[i][j][0] <= matrix[x][y][0] and matrix[i][j][1] <= matrix[x][y][1]) and (matrix[i][j][0] < matrix[x][y][0] or matrix[i][j][1] < matrix[x][y][1]):
                         print("(",i,",",j,") <","(",x,",",y,")")
+
+
+def prudent_strategy(matrix):
+    A = numpy.array(get_player_matrix(matrix, 1))
+    B = numpy.array(get_player_matrix(matrix, 2))
+    print("calcul des strategies prudentes purs pour le joueur 1:") # c'est a dire le payment maximal que le joueur peut assurer quelle que soit la l'action de l'autre joueur
+    #print(A.T[0])
+    #print(A[0][1]) Max Min
+    for i in range(3):
+        for j in range(3):
+            if A[i][j] == min(A[i]) and A[i][j] == max(A.T[i]):
+                print("la strategie : (",i,",",j,") est une strategie prudente avec un gain de ",A[i][j])
+    print("calcul des strategies prudentes purs pour le joueur 2:")
+    for i in range(3):
+        for j in range(3):
+            if B[i][j] == max(B[i]) and B[i][j] == min(B.T[i]):
+                print("la strategie : (",i,",",j,") est une strategie prudente avec un gain de ",B[i][j])
