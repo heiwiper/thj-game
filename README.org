@@ -28,7 +28,7 @@
 | shield | [[./assets/shield.png]] |
 
 * Sprites
-  Credits [[https://www.spriters-resource.com/pc_computer/shovelknight/sheet/67117/][spriters-resource]]   
+  Credits : [[https://www.spriters-resource.com/pc_computer/shovelknight/sheet/67117/][spriters-resource]]   
   
 | Red character                                | Blue character                               |
 |----------------------------------------------+----------------------------------------------|
