@@ -13,15 +13,31 @@
    4) [X] Pareto Dominance
    5) [X] Niveau de sécurité
 
-** TODO [1/2] Deuxieme Etape (Calcul des strategies en mixte)
+** TODO [2/2] Deuxieme Etape (Calcul des strategies en mixte)
    1) [X] Equilibre de Nash
-   2) [ ] Niveau de sécurité
-
-** [0/0] Troisieme Etape (Interface du jeu)
-   (pas encore planifié)
-      
-** [0/0] Troisieme Etape (Amelioration)
-   (pas encore planifié)
+   2) [X] Strategies prudentes
    
 * TODO [0/1] Secondary Tasks
   1) [ ] Carte a deviner
+
+* Items
+  Credits : [[http://pixelartmaker.com/art/cc9ed077aed46f5/][source]] 
+  
+| item      | image                        |
+|-----------+------------------------------|
+| shield | [[./assets/shield.png]] |
+
+* Sprites
+  Made using [[http://www.mmorpgmakerxb.com/p/characters-sprites-generator][mmorpgmakerxb]]   
+  
+| Red character                                | Blue character                               |
+|----------------------------------------------+----------------------------------------------|
+| [[./assets/characters/red/spritesheet red.png]] | [[./assets/characters/blue/spritesheet blue.png]] |
+ 
+* Background
+  Credits : [[https://edermunizz.itch.io/pixel-art-forest][edermunizz]] 
+
+  [[./assets/background.png]]
+
+* Music
+  Credits : [[https://soundcloud.com/djcutman/frost-on-monday-morning?in=djcutman/sets/volume-iv][Dj CUTMAN]] 
