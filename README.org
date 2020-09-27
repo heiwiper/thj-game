@@ -21,14 +21,14 @@
   1) [ ] Carte a deviner
 
 * Items
-  Credits : [[http://pixelartmaker.com/art/cc9ed077aed46f5/][source]] 
+  Credits : [[http://pixelartmaker.com/art/cc9ed077aed46f5/][pixelartmaker]] 
   
 | item      | image                        |
 |-----------+------------------------------|
 | shield | [[./assets/shield.png]] |
 
 * Sprites
-  Made using [[http://www.mmorpgmakerxb.com/p/characters-sprites-generator][mmorpgmakerxb]]   
+  Credits [[https://www.spriters-resource.com/pc_computer/shovelknight/sheet/67117/][spriters-resource]]   
   
 | Red character                                | Blue character                               |
 |----------------------------------------------+----------------------------------------------|
